@@ -80,3 +80,6 @@ Thumbs.db
 
 # TypeScript
 *.tsbuildinfo
+
+## Vercel
+.vercel

@@ -1,25 +1,16 @@
-import axios from 'axios';
-const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
+import api from '../chatgpt';
 
 export const generateAIReply = async (messageText: string): Promise<string> => {
     const prompt = `Generate a reply to the following message:${messageText}`;
     try {
-        const response = await axios.post(
-            "https://api.openai.com/v1/completions",
-            {
-                model: 'gpt-3.5-turbo-instruct',
-              prompt: prompt,
-              max_tokens: 150,
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${OPENAI_API_KEY}`,
-              },
-            }
-          );
+        
+        const response = await api.completions.create({
+            model: 'gpt-3.5-turbo-instruct',
+            prompt: prompt,
+            max_tokens: 150,
+        });
 
-        return response.data.choices[0].text.trim();
+        return response.choices[0].text.trim();
     } catch (error: any) {
         console.log(error)
         if (error.response && error.response.status === 429) {
