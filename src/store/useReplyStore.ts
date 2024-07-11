@@ -1,5 +1,4 @@
 import create from 'zustand';
-import { generateAIReply } from '../services/openaiService';
 
 interface ReplyStore {
     reply: string;
@@ -14,7 +13,15 @@ export const useReplyStore = create<ReplyStore>((set) => ({
     reply: '',
     theme: 'light',
     generateReply: async (messageText) => {
-        const reply = await generateAIReply(messageText)
+        const response = await fetch('/api/openai', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ prompt: messageText }),
+          });
+  
+        const reply = await response.json();
         set({ reply: reply });
     },
     editReply: (reply) => {
