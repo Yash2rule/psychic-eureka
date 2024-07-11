@@ -6,8 +6,11 @@
         "use": "@vercel/node"
       },
       {
-        "src": "public/**/*",
-        "use": "@vercel/static"
+        "src": "vite.config.ts",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "dist"
+        }
       }
     ],
     "routes": [
