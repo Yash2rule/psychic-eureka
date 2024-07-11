@@ -15,5 +15,4 @@ export default defineConfig({
       input: './src/main.tsx',  // Specify your main.tsx file here
     },
   },
-  publicDir: 'public',
 })
